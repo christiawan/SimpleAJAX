@@ -1,0 +1,24 @@
+{
+  "name": "SimpleCRUD",
+  "authors": [
+    "christiawan <christiawaneko@gmail.com>"
+  ],
+  "description": "Simple CRUD PHP pakai AJAX",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "ajax",
+    "crud",
+    "php"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
