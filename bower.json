@@ -3,22 +3,27 @@
   "authors": [
     "christiawan <christiawaneko@gmail.com>"
   ],
-  "description": "Simple CRUD PHP pakai AJAX",
+  "description": "Simple PHP CRUD with AJAX",
   "main": "",
   "moduleType": [],
   "keywords": [
-    "ajax",
     "crud",
-    "php"
+    "php",
+    "ajax",
+    "simple"
   ],
   "license": "MIT",
   "homepage": "",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "please-wait": "https://github.com/Pathgather/please-wait.git#~0.0.5"
+  }
 }
