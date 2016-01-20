@@ -33,14 +33,14 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td width="3%">Trident</td>
-                        <td width="27%">Internet Explorer 4.0</td>
-                        <td width="30%">Win 95+</td>
-                        <td width="20%" class="center">4</td>
-                        <td width="20%" class="center">X</td>
-                    </tr>
+                <tbody id="tr_wrapper">
+	                    <tr>
+	                        <td width="3%">Trident</td>
+	                        <td width="27%">Internet Explorer 4.0</td>
+	                        <td width="30%">Win 95+</td>
+	                        <td width="20%" class="center">4</td>
+	                        <td width="20%" class="center">X</td>
+	                    </tr>
                 </tbody>
 			</table>
 	      </div>
@@ -62,21 +62,43 @@
 		      <div class="modal-body">
 		        <form>
 		          <div class="form-group">
-		            <label for="recipient-name" class="control-label" required>Nama</label>
-		            <input type="text" class="form-control" id="recipient-name">
+		            <label for="recipient-name" class="control-label" >Nama</label>
+		            <input type="text" class="form-control" placeholder="nama" id="nama" required>
 		          </div>
 		          <div class="form-group">
-		            <label for="message-text" class="control-label" required>Alamat:</label>
-		            <textarea class="form-control" id="message-text"></textarea>
+		            <label for="message-text" class="control-label" >Alamat:</label>
+		            <textarea class="form-control" id="alamat"  placeholder="alamat"  required ></textarea>
 		          </div>
 		        </form>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Kirim</button>
+		        <button type="button" id="kirim_data" class="btn btn-primary">Kirim</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+
+		<script type="text/javascript">
+		$('#kirim_data').on('click',function(){
+			var nama = $('#nama').val();
+			var alamat = $('#alamat').val();
+			$.ajax({
+				method	: 'POST',
+				url		: 'funcAjax/data.php',
+				data 	: {	datanama : nama , dataalamat : alamat , type : 'tambah' },
+
+				success	: function(data){
+					$('#tr_wrapper').prepend(data);
+					$('#tambahdata').modal('hide')
+				    $('#nama').val('');
+					$('#alamat').val('');
+					
+				}
+			});
+
+		});
+
+		</script>
 	</body>
 </html>
