@@ -1,2 +1,2 @@
 # SimpleAJAX
-SImple crud php use ajax
+Simple PHP CRUD use AJAX
