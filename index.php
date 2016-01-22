@@ -1,3 +1,6 @@
+<?php
+	include_once 'conn/config.php';
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,7 +12,6 @@
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8" async defer></script>
 		<link rel="stylesheet" href="style/css/style.css">
 
-	
 	</head>
 	<body>
 		<div class="container">
@@ -21,12 +23,10 @@
 	        </nav>
 	        <h3 class="text-muted">Data APA AJA ~</h3>
 	      </div>
-
 	      <div class="row">
 	        <table class="table">
 				<thead>
                     <tr>
-                        <th>No</th>
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th>Ketampanan</th>
@@ -34,23 +34,41 @@
                     </tr>
                 </thead>
                 <tbody id="tr_wrapper">
-	                    <tr>
-	                        <td width="3%">Trident</td>
-	                        <td width="27%">Internet Explorer 4.0</td>
-	                        <td width="30%">Win 95+</td>
-	                        <td width="20%" class="center">4</td>
-	                        <td width="20%" class="center">X</td>
+                	<?php
+                		$q = "SELECT * FROM tb_data ORDER BY id DESC";
+                		$query = mysqli_query($link,$q);
+
+                		foreach ($query as $data) {
+                			
+
+                	?>
+	                    <tr id="tr_area_<?php echo $data['id']; ?>">
+	                        <td width="30%" class="data_apa0" id="data_<?=$data['id'];?>" data-id="<?=$data['id'];?>"><?php echo $data['nama']; ?></td>
+	                        <td width="35%" class="data_apa1" id="data_<?=$data['id'];?>" data-id="<?=$data['id'];?>"><?php echo $data['alamat']; ?></td>
+	                        <td width="15%"><?php 
+	                        	if ($data['uface'] == 1) {
+									echo "belum tampan";
+								}else{
+									echo "tampan";
+								}
+								 ?></td>
+	                        <td width="20%" class="center">
+	                        	<button type="button" class="btn del_kometar" id="id_del_<?php echo $data['id'];?>" data-id="<?php echo $data['id'];?>">Delete</button>
+	                        	<button type="button" class="btn edit_kometar" id="id_edit_<?php echo $data['id'];?>" data-id="<?php echo $data['id'];?>">Delete</button>
+	                        </td>
+
 	                    </tr>
+
+	                <?php
+	                	}
+	                ?>
                 </tbody>
 			</table>
 	      </div>
-
 	      <footer class="footer">
 	        <p>&copy; 2016 <a href="christiawan.github.io">Christiawan</a>, Inc. | </p>
 	      </footer>
-
 	    </div>
-
 
 	    <div class="modal fade" id="tambahdata" tabindex="-1" role="dialog" >
 		  <div class="modal-dialog" role="document">
@@ -93,10 +111,60 @@
 					$('#tambahdata').modal('hide')
 				    $('#nama').val('');
 					$('#alamat').val('');
+				}
+			});
+
+		});
+
+
+		$(document).on('click','.del_kometar',function(){
+			var id = $(this).attr('data-id');
+			$.ajax({
+				method	: 'POST',
+				url		: 'funcAjax/data.php',
+				data 	: {	dataid : id  , type : 'delete' },
+
+				success	: function(data){
+					
+					$('#tr_area_'+id).fadeOut();
 					
 				}
 			});
 
+		});
+
+		$(document).on('click','.data_apa0',function(){
+			var id = $(this).attr('data-id');
+			var textbox = $(document.createElement('textarea')).attr('id','textarea_'+id);
+
+			$(this).replaceWith(textbox);
+		})
+
+		$(document).on('click','.data_apa1',function(){
+			var id = $(this).attr('data-id');
+			var textbox = $(document.createElement('textarea')).attr('id','textarea_'+id);
+
+			$(this).replaceWith(textbox);
+		})
+
+
+
+		$(document).on('click','.edit_kometar',function(){
+			var id = $(this).attr('data-id');
+
+
+
+			$.ajax({
+				method	: 'POST',
+				url		: 'funcAjax/data.php',
+				data 	: {	dataid : id  , type : 'delete' },
+
+				success	: function(data){
+					
+					$('#tr_area_'+id).fadeOut();
+					
+				}
+			});
 		});
 
 		</script>
